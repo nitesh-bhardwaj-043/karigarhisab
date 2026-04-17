@@ -105,17 +105,22 @@
                 <thead>
                     <tr class="active">
                         <th>Sl No.</th>
-                        <th>To</th>
+                        <th>Worker</th>
                         <th>Type</th>
                         <th>Grams</th>
                         <th>Date & Time</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr dir-paginate="z in datadb | filter: search_text | itemsPerPage: 10">
+                    <tr dir-paginate="z in datadb | filter: search_text | itemsPerPage: 10"  ng-style="{
+    'background-color': z.direction == 1 ? '#ffcccc' : '#ccffcc',
+    'color': z.direction == 1 ? 'red' : 'green',
+    'font-weight': 'bold',
+    'text-align': 'center'
+  }">
                         <td>{{$index+1}}</td>
-                        <td>{{z.admin_id}}</td>
-                        <td>{{z.direction}}</td>
+                        <td>{{z.worker_name}}</td>
+                        <td>{{ z.direction == 1 ? 'Given' : 'Taken' }}</td>
                         <td>{{z.grams}}</td>
                         <td>{{z.created_at}}</td>
                     </tr>

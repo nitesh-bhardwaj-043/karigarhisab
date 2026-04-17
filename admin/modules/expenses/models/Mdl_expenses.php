@@ -10,6 +10,20 @@ class Mdl_expenses extends CI_Model
         $CI =& get_instance();
         $this->admin_id = (int) $CI->session->userdata('admin_id');
     }
+    function get_this_month_expenses()
+{
+    $this->db->select('SUM(price) as total_expense');
+    $this->db->from('expenses');
+
+    $this->db->where('admin_id', $this->admin_id);
+
+    // filter current month using expense_date
+    $this->db->where('MONTH(expense_date)', date('m'));
+    $this->db->where('YEAR(expense_date)', date('Y'));
+
+    $query = $this->db->get();
+    return $query->row();
+}
     function view_data($where=null,$select="*")
     {
         $this->db->select($select);

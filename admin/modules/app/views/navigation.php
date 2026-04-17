@@ -27,6 +27,10 @@
 					<span class="menu-text">Records</span><span class="selected"></span></a>
 			</li>
 
+			<li class="sidepadding"><a href="#/expenses" accesskey="e"><i class="fa fa-credit-card"></i>
+					<span class="menu-text">Expenses</span><span class="selected"></span></a>
+			</li>
+
 			<!-- <li class="sidepadding"><a href="#/complaints" accesskey="n"><i class="fa fa-tags"></i>
 					<span class="menu-text">Pending Complaints</span><span class="selected"></span></a>
 			</li>

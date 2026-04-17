@@ -7,7 +7,7 @@ app.controller("ctrl_transactions", function ($scope, $http) {
   });
 
   $scope.loader = function () {
-    $http.get("workers/view_data").success(function (data) {
+    $http.get("workers/view_active_data").success(function (data) {
       $scope.workers = data;
     });
     $http.get("workers/view_admin").success(function (data) {

@@ -9,7 +9,7 @@ class Mdl_transactions extends CI_Model
         parent::__construct();
         $this->table = "transactions";
         $this->table2 = "wallet";
-        $CI =& get_instance();
+        $CI = &get_instance();
         $this->admin_id = (int) $CI->session->userdata('admin_id');
     }
     function add_data($data)
@@ -19,14 +19,26 @@ class Mdl_transactions extends CI_Model
     }
     function view_data($where = null, $select = "*")
     {
-        $this->db->select($select);
+        $this->db->select($select . ', workers.name as worker_name'); // add worker name
+
+        $this->db->from($this->table); // transactions table
+
+        $this->db->join('workers', 'workers.id = ' . $this->table . '.worker_id', 'left');
+
         if ($this->admin_id) {
-            $this->db->where('admin_id', $this->admin_id);
+            $this->db->where($this->table . '.admin_id', $this->admin_id);
         }
-        $this->db->order_by('id', "desc");
-        return $this->db->get($this->table);
+
+        if (!empty($where) && $where !== "*") {
+            $this->db->where($where);
+        }
+
+        $this->db->order_by($this->table . '.id', "desc");
+
+        return $this->db->get();
     }
-    function get_wallet(){
+    function get_wallet()
+    {
         if ($this->admin_id) {
             $this->db->where('admin_id', $this->admin_id);
         }

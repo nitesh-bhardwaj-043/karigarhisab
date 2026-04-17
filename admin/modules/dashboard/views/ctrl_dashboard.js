@@ -12,6 +12,12 @@ app.controller("ctrl_dashboard", function ($scope, $http) {
     $http.get("workers/view_admin").success(function (data) {
       $scope.name = data[0].name;
     });
+     $http.get("expenses/this_month").success(function (data) {
+        $scope.this_month = data;
+      });
+      $http.get("transactions/view_data").success(function (data) {
+        $scope.datadb = data;
+      });
   };
 
   $scope.loader();

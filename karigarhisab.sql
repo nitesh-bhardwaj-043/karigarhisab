@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2026 at 11:05 PM
+-- Generation Time: Apr 17, 2026 at 10:29 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `jewellery`
+-- Database: `karigarhisab`
 --
 
 -- --------------------------------------------------------
@@ -41,11 +41,37 @@ CREATE TABLE `admin_profile` (
 --
 
 INSERT INTO `admin_profile` (`id`, `name`, `username`, `password`, `adwords`, `timestamp`) VALUES
-(1, 'Nitesh Bhardwaj', 'nitesh', 'e10adc3949ba59abbe56e057f20f883e', NULL, '2025-10-05 06:50:56');
+(1, 'Nitesh Bhardwaj', 'nitesh', 'e10adc3949ba59abbe56e057f20f883e', NULL, '2025-10-05 06:50:56'),
+(5, 'Liladhar Sharma', 'liladhar', 'e10adc3949ba59abbe56e057f20f883e', NULL, '2026-03-02 13:58:32');
 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` int(11) NOT NULL,
+  `admin_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `category` varchar(100) NOT NULL,
+  `expense_date` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `admin_id`, `name`, `description`, `price`, `category`, `expense_date`, `created_at`) VALUES
+(1, 1, 'Nitesh Bhardwaj', 'Buyed gold at 1.8', '200000.00', 'Gold', '2026-04-17', '2026-04-17 08:03:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transactions`
 --
 
 CREATE TABLE `transactions` (
@@ -62,10 +88,10 @@ CREATE TABLE `transactions` (
 --
 
 INSERT INTO `transactions` (`id`, `admin_id`, `worker_id`, `direction`, `grams`, `created_at`) VALUES
-(1, 1, 2, 1, '20.0000', '2025-11-09 08:14:54'),
-(2, 1, 6, 1, '10.0000', '2025-11-09 08:15:10'),
-(3, 1, 2, 2, '10.0000', '2025-11-09 08:15:19'),
-(4, 1, 6, 1, '20.0000', '2025-11-16 16:47:31');
+(1, 1, 5, 1, '30.0000', '2026-04-17 07:04:29'),
+(2, 1, 2, 1, '20.0000', '2026-04-17 07:04:38'),
+(3, 1, 1, 1, '40.0000', '2026-04-17 07:04:57'),
+(4, 1, 5, 2, '10.0000', '2026-04-17 07:06:16');
 
 -- --------------------------------------------------------
 
@@ -84,7 +110,8 @@ CREATE TABLE `wallet` (
 --
 
 INSERT INTO `wallet` (`id`, `admin_id`, `grams`) VALUES
-(1, 1, '60.0000');
+(1, 1, '20.0000'),
+(2, 5, '100.0000');
 
 -- --------------------------------------------------------
 
@@ -106,28 +133,11 @@ CREATE TABLE `workers` (
 --
 
 INSERT INTO `workers` (`id`, `admin_id`, `name`, `image`, `status`, `created_at`) VALUES
-(2, 1, 'Nitesh', '421762588408.jpg', 1, '2025-11-08 07:53:29'),
-(3, 1, 'Arshaan', '311762588428.jpg', 1, '2025-11-08 07:53:48'),
-(4, 1, 'Kaustuv', '531762588485.jpg', 1, '2025-11-08 07:54:46'),
-(5, 1, 'Varij', '511762588567.jpg', 1, '2025-11-08 07:56:07'),
-(6, 1, 'liladhar', '371762621048.jpg', 1, '2025-11-08 16:57:28');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `expenses`
---
-
-CREATE TABLE `expenses` (
-  `id` int(11) NOT NULL,
-  `admin_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `category` varchar(100) NOT NULL,
-  `expense_date` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+(1, 1, 'Vishnu bhardwaj', '441772460039.png', 1, '2026-03-02 14:00:39'),
+(2, 1, 'Ankita Sharma', '441776407475.jpg', 1, '2026-03-02 14:01:00'),
+(3, 5, 'shivani sharma', '571772460092.png', 1, '2026-03-02 14:01:32'),
+(4, 5, 'Sunil sharma', '791772460117.png', 0, '2026-03-02 14:01:53'),
+(5, 1, 'Varij Nayan Mishra', '751776407460.jpeg', 1, '2026-04-17 06:31:00');
 
 --
 -- Indexes for dumped tables
@@ -138,6 +148,13 @@ CREATE TABLE `expenses` (
 --
 ALTER TABLE `admin_profile`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `admin_id` (`admin_id`);
 
 --
 -- Indexes for table `transactions`
@@ -163,13 +180,6 @@ ALTER TABLE `workers`
   ADD KEY `admin_id` (`admin_id`);
 
 --
--- Indexes for table `expenses`
---
-ALTER TABLE `expenses`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `admin_id` (`admin_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -177,7 +187,13 @@ ALTER TABLE `expenses`
 -- AUTO_INCREMENT for table `admin_profile`
 --
 ALTER TABLE `admin_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `expenses`
+--
+ALTER TABLE `expenses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `transactions`
@@ -189,19 +205,13 @@ ALTER TABLE `transactions`
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `workers`
 --
 ALTER TABLE `workers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `expenses`
---
-ALTER TABLE `expenses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

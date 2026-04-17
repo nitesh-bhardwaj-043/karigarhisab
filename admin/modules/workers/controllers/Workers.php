@@ -57,6 +57,20 @@ class Workers extends MX_Controller
         $return = $this->mdl_workers->view_data($where, $select);
         $this->output->set_content_type('application/json')->set_output(json_encode($return->result_array()));
     }
+    function view_active_data()
+    {
+        $where['status'] = 1;
+        if (isset($_GET['id']))
+            $where['id'] = $_GET['id'];
+
+        if (isset($_GET['data']))
+            $select = $_GET['data'];
+        else
+            $select = "*";
+
+        $return = $this->mdl_workers->view_data($where, $select);
+        $this->output->set_content_type('application/json')->set_output(json_encode($return->result_array()));
+    }
     function view_admin(){
         $return = $this->mdl_workers->view_admin();
         $this->output->set_content_type('application/json')->set_output(json_encode($return->result_array()));

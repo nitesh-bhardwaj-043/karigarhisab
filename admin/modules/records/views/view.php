@@ -17,16 +17,16 @@
                             <h5 class="mt-2"><?= htmlspecialchars($worker['name'], ENT_QUOTES, 'UTF-8') ?></h5>
                             <div class="worker-stats mt-3">
                                 <div class="stat-item text-success">
-                                    <small>Taken:</small> 
+                                    <small>Given back:</small> 
                                     <span><?= number_format($worker['taken'], 2) ?> g</span>
                                 </div>
                                 <div class="stat-item text-danger">
-                                    <small>Given:</small> 
+                                    <small>Taken:</small> 
                                     <span><?= number_format($worker['given'], 2) ?> g</span>
                                 </div>
                                  <div class="stat-item text-warning">
-                                    <small>Net:</small> 
-                                    <span><?= number_format($worker['taken'] - $worker['given'], 2) ?> g</span>
+                                    <small>Net(in hand):</small> 
+                                    <span><?= number_format($worker['given'] - $worker['taken'], 2) ?> g</span>
                                 </div>
                             </div>
                         </div>
@@ -93,6 +93,6 @@
     .stat-item small {
         opacity: 0.7;
         display: inline-block;
-        width: 45px;
+        width: 80px;
     }
 </style>

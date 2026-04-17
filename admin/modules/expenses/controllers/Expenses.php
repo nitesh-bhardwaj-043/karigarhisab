@@ -41,7 +41,15 @@ class Expenses extends MX_Controller
             echo validation_errors();
         }
     }
+    public function this_month()
+    {
 
+        $data = $this->mdl_expenses->get_this_month_expenses();
+
+        echo json_encode([
+            'total' => $data->total_expense ? $data->total_expense : 0
+        ]);
+    }
 
     function view_data()
     {
